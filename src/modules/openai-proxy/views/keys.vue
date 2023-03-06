@@ -93,12 +93,18 @@ const Table = useTable({
 					label: "更新",
 					type: "success",
 					onClick({ scope }) {
-						service.openai_proxy.keys.check_key({ id: scope.row.id }).then((res) => {
-							console.log(res);
-							ElMessage.success(res);
-							Crud.value?.refresh();
+						service.openai_proxy.keys
+							.check_key({ id: scope.row.id })
+							.then((res) => {
+								console.log(res);
+								ElMessage.success(res);
+								Crud.value?.refresh();
 
-						});
+							})
+							.catch((err) => {
+								console.log(err);
+								ElMessage.error(err);
+							});
 					}
 				}
 			]
